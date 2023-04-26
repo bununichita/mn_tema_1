@@ -1,0 +1,4 @@
+error: operator *: nonconformant arguments (op1 is 1000x400, op2 is 401x1)
+error: called from
+    ridge_regression_cost_function at line 15 column 5
+    run_test at line 9 column 13
