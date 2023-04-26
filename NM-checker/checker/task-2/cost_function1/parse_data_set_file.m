@@ -5,21 +5,14 @@ function [Y, InitialMatrix] = parse_data_set_file(file_path)
   % InitialMatrix -> the matrix that must be transformed
   
   % TODO: parse_data_set_file implementation
-  %file_path = "input.txt"
   in = fopen(file_path, "r");
   if (in == -1)
     error('Failed to open file');
   end
   m = fscanf(in, "%d", 1);
   n = fscanf(in, "%d", 1);
-  InitialMatrix = cell(m, n);
-  for i = 1:m
-    for j = 1:n
-      InitialMatrix(i, j) = fscanf(in, "%s", 1);
-    endfor
-  endfor
+  InitialMatrix = dlmread(file_path, ' ', 1, 0);
   fclose(in);
   Y = InitialMatrix(1:m, 1:1);
-  InitialMatrix = InitialMatrix(1:m, 2:n);
   
 endfunction
