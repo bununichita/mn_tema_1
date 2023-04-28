@@ -13,11 +13,20 @@ function [Y, InitialMatrix] = parse_csv_file(file_path)
   
   InitialMatrix = csvread(in);  
   fclose(in);
-  m = rows(InitialMatrix);
-  n = columns(InitialMatrix);
+  m = rows(InitialMatrix)
+  n = columns(InitialMatrix)
   InitialMatrix = textread(file_path, '%s', "delimiter", ',');
-  InitialMatrix = reshape(InitialMatrix, n, m);
-  InitialMatrix = transpose(InitialMatrix);
+  %InitialMatrix = reshape(InitialMatrix, m,n);
+  aux = InitialMatrix;
+  
+  for i = 1:n
+    for j = 1:m
+      c = (j - 1) * n + i;
+      InitialMatrix(j, i) = aux(c);
+    endfor
+  endfor
+  
+  %InitialMatrix = transpose(InitialMatrix);
   InitialMatrix = InitialMatrix(2:m, 1:n);
   m--;
   Y = InitialMatrix(1:m, 1:1)

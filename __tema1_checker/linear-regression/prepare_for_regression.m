@@ -6,27 +6,42 @@ function [FeatureMatrix] = prepare_for_regression(InitialMatrix)
   % TODO: prepare_for_regression implementation
   m = rows(InitialMatrix);
   n = columns(InitialMatrix);
-  FeatureMatrix = cell(m, n);
+  FeatureMatrix = cell(m, n + 1);
+  aux = zeros(m, 1);
+  poz = n;
   for i = 1:m
     for j = 1:n
         if strcmp(InitialMatrix{i, j}, "yes")
-          FeatureMatrix{i, j} = 1;
+          FeatureMatrix(i, j) = 1;
         elseif strcmp(InitialMatrix{i, j}, "no")
-          FeatureMatrix{i, j} = 0;
+          FeatureMatrix(i, j) = 0;
         elseif strcmp(InitialMatrix{i, j}, "semi-furnished")
-          FeatureMatrix{i, j} = 1;
-          FeatureMatrix{i, j + 1} = 0;
+          poz = j;
+          FeatureMatrix(i, j) = 1;
+          aux(i, 1) = 0;
         elseif strcmp(InitialMatrix{i, j}, "unfurnished")
-          FeatureMatrix{i, j} = 0;
-          FeatureMatrix{i, j + 1} = 1;
+          poz = j;
+          FeatureMatrix(i, j) = 0;
+          aux(i, 1) = 1;
         elseif strcmp(InitialMatrix{i, j}, "furnished")
-          FeatureMatrix{i, j} = 0;
-          FeatureMatrix{i, j + 1} = 0;
+          poz = j;
+          FeatureMatrix(i, j) = 0;
+          aux(i, 1) = 0;
         else
-          FeatureMatrix{i, j} = str2num(InitialMatrix{i, j});
+          FeatureMatrix(i, j) = str2num(InitialMatrix{i, j});
         endif
     endfor
   endfor
-  FeatureMatrix;
+  
   FeatureMatrix = cell2mat(FeatureMatrix);
+
+  if poz == n
+    FeatureMatrix = [FeatureMatrix, aux];
+  else
+    poz++;
+    FeatureMatrix = [FeatureMatrix(:, 1:poz - 1), aux, FeatureMatrix(:, poz:end)];
+  endif
+  
+  
+  
 endfunction
