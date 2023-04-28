@@ -9,6 +9,23 @@ function [Error] = lasso_regression_cost_function(Theta, Y, FeatureMatrix, lambd
 
   % TODO: lasso_regression_cost_function implementation
   
+  m = rows(FeatureMatrix);
+  n = columns(FeatureMatrix);
+  Theta(1,:) = [];
+  h = FeatureMatrix * Theta;
+  
+  %aux = Y - h;
+  s = 0;
+  
+  aux = Y - h;
+  s = sum(aux .* aux);
+  
+  %Theta = [Theta];
+  norm = 0;
+  for i = 1:n
+    norm = norm + abs(Theta(i, 1));
+  endfor
+  Error = s / m + lambda * norm;
   
   
 endfunction
