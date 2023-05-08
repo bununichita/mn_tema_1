@@ -1,4 +1,0 @@
-error: 'Y' undefined near line 1, column 1
-error: called from
-    parse_csv_file at line 8 column 1
-    run_test at line 4 column 24

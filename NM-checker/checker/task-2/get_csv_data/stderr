@@ -1,2 +1,0 @@
-warning: textread is obsolete; use textscan instead
-error: fprintf: wrong type argument 'cell'

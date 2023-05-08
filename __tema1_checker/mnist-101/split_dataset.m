@@ -11,4 +11,18 @@ function [X_train, y_train, X_test, y_test] = split_dataset(X, y, percent)
   %           -> X_test will have the other 150 examples
 
   % TODO: split_dataset implementation
+  
+  aux = randperm(size(X, 1));
+  X = X(aux, :);
+  y = y(aux);  
+  m = rows(X);
+  n = columns(X);
+  
+  split = m * percent;
+  
+  X_train = X(1:split, 1:n);
+  y_train = y(1:split, 1);
+  X_test = X(split + 1:m, 1:n);
+  y_test = y(split + 1:m, 1);
+  
 endfunction

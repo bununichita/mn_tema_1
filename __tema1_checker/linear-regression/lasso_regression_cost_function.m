@@ -14,13 +14,11 @@ function [Error] = lasso_regression_cost_function(Theta, Y, FeatureMatrix, lambd
   Theta(1,:) = [];
   h = FeatureMatrix * Theta;
   
-  %aux = Y - h;
   s = 0;
   
   aux = Y - h;
   s = sum(aux .* aux);
   
-  %Theta = [Theta];
   norm = 0;
   for i = 1:n
     norm = norm + abs(Theta(i, 1));
